@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingView" customModule="NearBy" customModuleProvider="target">
             <connections>
+                <outlet property="errorImage" destination="Rpk-ux-ly9" id="ypa-Ds-Ovp"/>
                 <outlet property="indicator" destination="2kP-Ac-7Tw" id="7dP-S7-vt5"/>
+                <outlet property="indicatorStack" destination="HeI-jy-vUF" id="AWw-B7-6KF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,20 +54,30 @@
                         <constraint firstAttribute="bottom" secondItem="V2i-63-Rtt" secondAttribute="bottom" constant="8" id="yi1-WQ-me5"/>
                     </constraints>
                 </view>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="errorView" translatesAutoresizingMaskIntoConstraints="NO" id="Rpk-ux-ly9">
+                    <rect key="frame" x="76.666666666666686" y="362" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="cxC-NB-aWE"/>
+                        <constraint firstAttribute="height" constant="128" id="s9d-zH-GBg"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="PGg-yN-xhL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5yl-LG-BaC"/>
+                <constraint firstItem="Rpk-ux-ly9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6yn-y8-ec4"/>
                 <constraint firstItem="HeI-jy-vUF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="BLE-Be-psF"/>
                 <constraint firstItem="PGg-yN-xhL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="CIa-dP-DP8"/>
                 <constraint firstItem="PGg-yN-xhL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Dfv-T1-VY4"/>
                 <constraint firstItem="HeI-jy-vUF" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="TAY-WV-IyJ"/>
+                <constraint firstItem="Rpk-ux-ly9" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="l4n-3S-cqL"/>
             </constraints>
             <point key="canvasLocation" x="136.64122137404578" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>
+        <image name="errorView" width="582" height="374"/>
         <systemColor name="systemGray5Color">
             <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
