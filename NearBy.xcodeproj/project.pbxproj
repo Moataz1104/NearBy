@@ -13,6 +13,9 @@
 		00BB6BE32BF3EC21004DFA69 /* RxRelay-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BE22BF3EC21004DFA69 /* RxRelay-Dynamic */; };
 		00BB6BE52BF3EC21004DFA69 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BE42BF3EC21004DFA69 /* RxSwift */; };
 		00BB6BE72BF3EC21004DFA69 /* RxSwift-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BE62BF3EC21004DFA69 /* RxSwift-Dynamic */; };
+		00BB6BEA2BF4ECDD004DFA69 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BB6BE92BF4ECDD004DFA69 /* APIConstants.swift */; };
+		00BB6BEC2BF4F3F7004DFA69 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BB6BEB2BF4F3F7004DFA69 /* LoadingViewModel.swift */; };
+		00BB6BEE2BF4F598004DFA69 /* APIBaseSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BB6BED2BF4F598004DFA69 /* APIBaseSession.swift */; };
 		00BBA56F2BF3DCB300816CD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BBA56E2BF3DCB300816CD3 /* AppDelegate.swift */; };
 		00BBA5712BF3DCB300816CD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BBA5702BF3DCB300816CD3 /* SceneDelegate.swift */; };
 		00BBA5782BF3DCB400816CD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00BBA5772BF3DCB400816CD3 /* Assets.xcassets */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00BB6BE92BF4ECDD004DFA69 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		00BB6BEB2BF4F3F7004DFA69 /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
+		00BB6BED2BF4F598004DFA69 /* APIBaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIBaseSession.swift; sourceTree = "<group>"; };
 		00BBA56B2BF3DCB300816CD3 /* NearBy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearBy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00BBA56E2BF3DCB300816CD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00BBA5702BF3DCB300816CD3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00BB6BE82BF4ECC8004DFA69 /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+				00BB6BE92BF4ECDD004DFA69 /* APIConstants.swift */,
+				00BB6BED2BF4F598004DFA69 /* APIBaseSession.swift */,
+			);
+			path = APIServices;
+			sourceTree = "<group>";
+		};
 		00BBA5622BF3DCB300816CD3 = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +85,7 @@
 			children = (
 				00BBA5822BF3DF2500816CD3 /* Models */,
 				00BBA5832BF3DF4A00816CD3 /* Scenes */,
+				00BB6BE82BF4ECC8004DFA69 /* APIServices */,
 				00BBA56E2BF3DCB300816CD3 /* AppDelegate.swift */,
 				00BBA5702BF3DCB300816CD3 /* SceneDelegate.swift */,
 				00BBA5772BF3DCB400816CD3 /* Assets.xcassets */,
@@ -99,6 +115,7 @@
 			children = (
 				00BBA5862BF3DF8000816CD3 /* LoadingView.swift */,
 				00BBA5872BF3DF8000816CD3 /* LoadingView.xib */,
+				00BB6BEB2BF4F3F7004DFA69 /* LoadingViewModel.swift */,
 			);
 			path = LoadingScene;
 			sourceTree = "<group>";
@@ -185,7 +202,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00BB6BEA2BF4ECDD004DFA69 /* APIConstants.swift in Sources */,
 				00BBA5882BF3DF8000816CD3 /* LoadingView.swift in Sources */,
+				00BB6BEE2BF4F598004DFA69 /* APIBaseSession.swift in Sources */,
+				00BB6BEC2BF4F3F7004DFA69 /* LoadingViewModel.swift in Sources */,
 				00BBA56F2BF3DCB300816CD3 /* AppDelegate.swift in Sources */,
 				00BBA5712BF3DCB300816CD3 /* SceneDelegate.swift in Sources */,
 			);
