@@ -8,6 +8,8 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import CoreLocation
+
 
 class LoadingViewModel{
     
@@ -15,25 +17,27 @@ class LoadingViewModel{
     
     let statePublisher = BehaviorRelay<Bool>(value: true) //state for something went wrong or not
     let placesDataPublisher = PublishRelay<[PlaceResult]>()
+    var locationManager = CLLocationManager()
     
     
     init(disposeBag:DisposeBag){
         self.disposeBag = disposeBag
-        
+                
         subscribeToDataPublisher()
         subscribeToErroPublisher()
+//        checkAuthorizationStatus()
     }
     
     
     
-//    MARK: - API Subscribetions 
+    //    MARK: - API Subscribetions
     
     func sendRequest(){
         APIPlaceRequest.shared.placeSearchRequest()
         statePublisher.accept(true)
     }
     
-//    subscribe to data publisher
+    //    subscribe to data publisher
     private func subscribeToDataPublisher(){
         APIPlaceRequest.shared.dataPublisher
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
@@ -45,9 +49,9 @@ class LoadingViewModel{
                 }
             }
             .disposed(by: disposeBag)
-    } 
+    }
     
-//    subscribe to error publisher
+    //    subscribe to error publisher
     private func subscribeToErroPublisher(){
         APIPlaceRequest.shared.errorPublisher
             .subscribe {[weak self] event in
@@ -57,3 +61,32 @@ class LoadingViewModel{
             .disposed(by: disposeBag)
     }
 }
+
+
+
+//MARK: - Core location Authorizations
+extension LoadingViewModel{
+    
+    func checkAuthorizationStatus(){
+        //Check the authorization status
+        let status = locationManager.authorizationStatus
+        
+        switch status{
+        case .authorizedAlways , .authorizedWhenInUse  :
+            updateLocations()
+            statePublisher.accept(true)
+            break
+        default:
+            statePublisher.accept(false)
+        }
+    }
+    
+    func updateLocations(){
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        
+    }
+    
+    
+}
+

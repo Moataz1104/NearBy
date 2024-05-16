@@ -20,14 +20,11 @@ class LoadingView: UIViewController {
     
     let disposeBag = DisposeBag()
     var viewModel : LoadingViewModel!
-    var locationManager = CLLocationManager()
 
 //    MARK: - View Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
-        
         viewModel = LoadingViewModel(disposeBag: disposeBag)
         subscribeToStatePublisher()
         subscribeToPlacesDataPublisher()
@@ -36,9 +33,8 @@ class LoadingView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        locationManager.requestAlwaysAuthorization()
-
-        checkAuthorizationStatus()
+        viewModel.locationManager.delegate = self
+        viewModel.checkAuthorizationStatus()
 
     }
     
@@ -61,7 +57,7 @@ class LoadingView: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    //recive the places data
+    //receive the places data
     private func subscribeToPlacesDataPublisher(){
         viewModel.placesDataPublisher
             .observe(on: MainScheduler.instance)
@@ -76,21 +72,7 @@ class LoadingView: UIViewController {
             .disposed(by: disposeBag)
     }
     
-//    MARK: - Privates
     
-    private func checkAuthorizationStatus(){
-        //Check the authorization status
-        let status = locationManager.authorizationStatus
-        switch status{
-        case .authorizedAlways :
-            viewModel.sendRequest()
-            break
-        default:
-            configUiState(state: .error)
-        }
-    }
-
-
     
 //    MARK: - State
 
@@ -124,15 +106,31 @@ class LoadingView: UIViewController {
 extension LoadingView : CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         //Check if the user changes the Authorization
+        
         switch manager.authorizationStatus{
         case .authorizedAlways , .authorizedWhenInUse:
-            configUiState(state: .requesting)
-            viewModel.sendRequest()
+            viewModel.statePublisher.accept(true)
+            viewModel.updateLocations()
             break
         default :
             configUiState(state: .error)
             break
         }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if let lastLocation = locations.last{
+            print(lastLocation.coordinate)
+            viewModel.statePublisher.accept(true)
+        }
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+        viewModel.statePublisher.accept(false)
     }
     
 }
