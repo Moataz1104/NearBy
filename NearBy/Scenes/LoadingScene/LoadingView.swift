@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 class LoadingView: UIViewController {
     
@@ -19,16 +20,28 @@ class LoadingView: UIViewController {
     
     let disposeBag = DisposeBag()
     var viewModel : LoadingViewModel!
-    
+    var locationManager = CLLocationManager()
 
 //    MARK: - View Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LoadingViewModel(disposeBag: disposeBag)
+        locationManager.delegate = self
         
+        viewModel = LoadingViewModel(disposeBag: disposeBag)
         subscribeToStatePublisher()
+        subscribeToPlacesDataPublisher()
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        locationManager.requestAlwaysAuthorization()
+
+        checkAuthorizationStatus()
+
+    }
+    
     
     
 //    MARK: - View Model Subscribetions
@@ -63,6 +76,20 @@ class LoadingView: UIViewController {
             .disposed(by: disposeBag)
     }
     
+//    MARK: - Privates
+    
+    private func checkAuthorizationStatus(){
+        //Check the authorization status
+        let status = locationManager.authorizationStatus
+        switch status{
+        case .authorizedAlways :
+            viewModel.sendRequest()
+            break
+        default:
+            configUiState(state: .error)
+        }
+    }
+
 
     
 //    MARK: - State
@@ -91,4 +118,21 @@ class LoadingView: UIViewController {
 
         }
     }
+}
+
+
+extension LoadingView : CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        //Check if the user changes the Authorization
+        switch manager.authorizationStatus{
+        case .authorizedAlways , .authorizedWhenInUse:
+            configUiState(state: .requesting)
+            viewModel.sendRequest()
+            break
+        default :
+            configUiState(state: .error)
+            break
+        }
+    }
+    
 }

@@ -13,13 +13,12 @@ class LoadingViewModel{
     
     let disposeBag : DisposeBag
     
-    let statePublisher = BehaviorRelay<Bool>(value: true) //state for somthing went wrong or not
+    let statePublisher = BehaviorRelay<Bool>(value: true) //state for something went wrong or not
     let placesDataPublisher = PublishRelay<[PlaceResult]>()
     
     
     init(disposeBag:DisposeBag){
         self.disposeBag = disposeBag
-        sendRequest()
         
         subscribeToDataPublisher()
         subscribeToErroPublisher()
@@ -29,7 +28,7 @@ class LoadingViewModel{
     
 //    MARK: - API Subscribetions 
     
-    private func sendRequest(){
+    func sendRequest(){
         APIPlaceRequest.shared.placeSearchRequest()
         statePublisher.accept(true)
     }
@@ -46,7 +45,7 @@ class LoadingViewModel{
                 }
             }
             .disposed(by: disposeBag)
-    }
+    } 
     
 //    subscribe to error publisher
     private func subscribeToErroPublisher(){
