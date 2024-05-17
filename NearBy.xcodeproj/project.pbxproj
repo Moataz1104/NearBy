@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00581B702BF755DD00ECD829 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B6E2BF755DD00ECD829 /* InfoView.swift */; };
+		00581B712BF755DD00ECD829 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00581B6F2BF755DD00ECD829 /* InfoView.xib */; };
+		00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */; };
+		00581B762BF77E9100ECD829 /* PlaceInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */; };
 		00BB6BDD2BF3EC21004DFA69 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BDC2BF3EC21004DFA69 /* RxCocoa */; };
 		00BB6BDF2BF3EC21004DFA69 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BDE2BF3EC21004DFA69 /* RxCocoa-Dynamic */; };
 		00BB6BE12BF3EC21004DFA69 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BE02BF3EC21004DFA69 /* RxRelay */; };
@@ -27,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00581B6E2BF755DD00ECD829 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		00581B6F2BF755DD00ECD829 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoView.xib; sourceTree = "<group>"; };
+		00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoCell.swift; sourceTree = "<group>"; };
+		00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceInfoCell.xib; sourceTree = "<group>"; };
 		00BB6BE92BF4ECDD004DFA69 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		00BB6BEB2BF4F3F7004DFA69 /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		00BB6BED2BF4F598004DFA69 /* APIBaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIBaseSession.swift; sourceTree = "<group>"; };
@@ -59,6 +67,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00581B692BF754C700ECD829 /* ShowingInfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				00581B6E2BF755DD00ECD829 /* InfoView.swift */,
+				00581B6F2BF755DD00ECD829 /* InfoView.xib */,
+			);
+			path = ShowingInfoScreen;
+			sourceTree = "<group>";
+		};
+		00581B722BF77E7000ECD829 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */,
+				00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */,
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
 		00BB6BE82BF4ECC8004DFA69 /* APIServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				00BBA5842BF3DF5A00816CD3 /* LoadingScene */,
+				00581B692BF754C700ECD829 /* ShowingInfoScreen */,
+				00581B722BF77E7000ECD829 /* CustomCells */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -195,6 +223,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00581B762BF77E9100ECD829 /* PlaceInfoCell.xib in Resources */,
+				00581B712BF755DD00ECD829 /* InfoView.xib in Resources */,
 				00BBA5892BF3DF8000816CD3 /* LoadingView.xib in Resources */,
 				00BBA5782BF3DCB400816CD3 /* Assets.xcassets in Resources */,
 				00BBA57B2BF3DCB400816CD3 /* Base in Resources */,
@@ -215,6 +245,8 @@
 				00BB6BEC2BF4F3F7004DFA69 /* LoadingViewModel.swift in Sources */,
 				00BBA56F2BF3DCB300816CD3 /* AppDelegate.swift in Sources */,
 				00BBA5712BF3DCB300816CD3 /* SceneDelegate.swift in Sources */,
+				00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */,
+				00581B702BF755DD00ECD829 /* InfoView.swift in Sources */,
 				00BB6BF02BF4FD7D004DFA69 /* APIPlaceRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

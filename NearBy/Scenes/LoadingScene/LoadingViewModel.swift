@@ -42,7 +42,7 @@ class LoadingViewModel{
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .subscribe {[weak self] event in
-                if let results = event.element?.results ,event.element?.results?.count != 0 {
+                if let results = event.element?.results{
                     self?.placesDataPublisher.accept(results)
                     
                 }

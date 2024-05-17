@@ -13,15 +13,22 @@ struct PlaceModel : Codable{
 
 struct PlaceResult : Codable{
     let fsqID : String?
-    let categories : [PlaceCategory]?
     let location : Location?
+    let name : String?
+    
+    enum CodingKeys : String , CodingKey{
+        case fsqID = "fsq_ID"
+        case location , name
+    }
     
 }
 
-struct PlaceCategory: Codable{
-    let name : String?
-}
-
 struct Location: Codable{
+    let address : String?
     let formattedAddress : String?
+    
+    enum CodingKeys:String,CodingKey {
+        case address
+        case formattedAddress = "formatted_address"
+    }
 }

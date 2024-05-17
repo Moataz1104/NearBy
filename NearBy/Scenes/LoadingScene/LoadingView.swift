@@ -12,7 +12,7 @@ import CoreLocation
 
 class LoadingView: UIViewController {
     
-//    MARK: - Attributes
+//    MARK: - Attributes and Outlets
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var errorImage: UIImageView!
@@ -63,7 +63,8 @@ class LoadingView: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe {[weak self] places in
                 if let results = places.element , places.element?.count != 0{
-                    print(results)
+                    self?.navigationController?.setViewControllers([InfoView(places: results)], animated: true)
+
                 }else{
                     self?.configUiState(state: .noData)
 
@@ -124,6 +125,8 @@ extension LoadingView : CLLocationManagerDelegate {
         if let lastLocation = locations.last{
             print(lastLocation.coordinate)
             viewModel.statePublisher.accept(true)
+            viewModel.locationManager.stopUpdatingLocation()
+            viewModel.sendRequest(lat: "\(lastLocation.coordinate.latitude)", lon: "\(lastLocation.coordinate.longitude)")
         }
         
     }
