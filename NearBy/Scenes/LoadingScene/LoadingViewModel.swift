@@ -22,18 +22,17 @@ class LoadingViewModel{
     
     init(disposeBag:DisposeBag){
         self.disposeBag = disposeBag
-                
+        
         subscribeToDataPublisher()
         subscribeToErroPublisher()
-//        checkAuthorizationStatus()
     }
     
     
     
     //    MARK: - API Subscribetions
     
-    func sendRequest(){
-        APIPlaceRequest.shared.placeSearchRequest()
+    func sendRequest(lat:String,lon:String){
+        APIPlaceRequest.shared.placeSearchRequest(lat: lat, lon: lon)
         statePublisher.accept(true)
     }
     

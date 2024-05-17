@@ -20,19 +20,27 @@ class APIPlaceRequest {
     
     
     //Build request to get places's data
-    func placeSearchRequest(){
+    func placeSearchRequest(lat:String,lon:String){
         guard let url = URL(string: APIK.baseUrlString) else{
             errorPublisher.accept(NSError(domain: "URL Error", code: 0))
             return
         }
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComponents?.path.append("/search")
+
+        let coordinateItems = URLQueryItem(name: "ll", value: "\(lat),\(lon)")
+        let radiusItems = URLQueryItem(name: "radius", value: "1000")
+        
+        urlComponents?.queryItems = [coordinateItems,radiusItems]
+        
+        
+        
         guard let finalUrl = urlComponents?.url else{
             print("Invalid URL")
             errorPublisher.accept(NSError(domain: "URL Error", code: 0))
             return}
         
-        
+        print(finalUrl)
         var request = URLRequest(url: finalUrl)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = ["accept":"application/json" ,

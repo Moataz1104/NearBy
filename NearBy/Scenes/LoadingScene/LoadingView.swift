@@ -113,7 +113,7 @@ extension LoadingView : CLLocationManagerDelegate {
             viewModel.updateLocations()
             break
         default :
-            configUiState(state: .error)
+            viewModel.statePublisher.accept(false)
             break
         }
     }
