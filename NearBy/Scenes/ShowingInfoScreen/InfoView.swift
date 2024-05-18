@@ -33,11 +33,12 @@ class InfoView: UIViewController {
         
         
         modeButton.configureMenu{action in
-            print(action.title)
+            UserDefaults.standard.set(action.title,forKey: "selectedMode")
         }
         
         subscribeToStatePublisher()
         registerCell()
+        
         
     }
     

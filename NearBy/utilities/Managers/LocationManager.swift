@@ -34,8 +34,10 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
             updateLocations()
             statePublisher.accept(true)
             break
-        default:
+        case .denied:
             statePublisher.accept(false)
+        default:
+            statePublisher.accept(true )
         }
     }
     
@@ -67,8 +69,10 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
             statePublisher.accept(true)
             updateLocations()
             break
-        default :
+        case .denied:
             statePublisher.accept(false)
+        default :
+            statePublisher.accept(true)
             break
         }
     }
