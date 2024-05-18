@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoView" customModule="NearBy" customModuleProvider="target">
             <connections>
                 <outlet property="modeButton" destination="pyP-tp-rJW" id="eRH-6q-rDF"/>
+                <outlet property="stateImage" destination="uat-zo-yNW" id="fcS-Sp-SQW"/>
                 <outlet property="tableView" destination="fMA-w8-3lg" id="Drw-XB-K90"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -49,12 +50,21 @@
                     <rect key="frame" x="0.0" y="90" width="393" height="728"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uat-zo-yNW">
+                    <rect key="frame" x="76.666666666666686" y="362" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="78d-Tr-XZt"/>
+                        <constraint firstAttribute="height" constant="128" id="BQP-YD-Xi7"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9Mq-Wz-K8S"/>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CgF-5f-gqI"/>
+                <constraint firstItem="uat-zo-yNW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="D3e-42-xXG"/>
+                <constraint firstItem="uat-zo-yNW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Ub6-CJ-4TY"/>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Vvw-M0-ZB0"/>
                 <constraint firstAttribute="trailing" secondItem="fMA-w8-3lg" secondAttribute="trailing" id="a94-W1-Y1D"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fMA-w8-3lg" secondAttribute="bottom" id="hu8-ro-lnl"/>

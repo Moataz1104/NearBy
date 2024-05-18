@@ -28,6 +28,7 @@ class LoadingViewModel{
         subscribeToDataPublisher()
         subscribeToErroPublisher()
         subscribeToCooridatePublisher()
+        subscribeToLocationStatePublisher()
 
 
     }
@@ -49,6 +50,7 @@ class LoadingViewModel{
             .subscribe {[weak self] event in
                 if let results = event.element?.results{
                     self?.placesDataPublisher.accept(results)
+                    
                     
                 }
             }
@@ -80,6 +82,15 @@ class LoadingViewModel{
         
     }
     
+    private func subscribeToLocationStatePublisher(){
+        LocationManager.shared.statePublisher
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.instance)
+            .subscribe {[weak self] state in
+                self?.statePublisher.accept(state)
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 

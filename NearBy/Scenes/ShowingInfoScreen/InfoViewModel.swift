@@ -17,18 +17,24 @@ class InfoViewModel{
     private var photoURlCach:[String:URL] = [:]
     var dataTask:URLSessionDataTask?
     
+    let statePublisher = BehaviorRelay<Bool>(value: true)
+        
+    
+    
     
     func fetchPhotosUrl(place : PlaceResult , completion:@escaping(URL?,Error?) -> Void){
         guard let id = place.fsqID else{
             print("No id")
             completion(nil,NSError(domain: "URL Error", code: 0))
+            statePublisher.accept(false)
             return
         }
         
 //        Check if the url already exists or not
         if let cachedUrl = photoURlCach[id]{
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {[weak self] in
                 completion(cachedUrl,nil)
+                self?.statePublisher.accept(true)
             }
             
             return
@@ -42,19 +48,24 @@ class InfoViewModel{
                                            "Authorization":APIK.apiKey
             ]
             dataTask = URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
-                guard let data = data , error == nil else {completion(nil , error); return}
+                guard let data = data , error == nil else {
+                    completion(nil , error)
+                    self?.statePublisher.accept(false)
+                    return}
                 do{
                     let placePhotos = try JSONDecoder().decode([PlacePhotoModel].self, from: data)
                     if let placePhoto = placePhotos.first, let url = URL(string:placePhoto.photoUrlString!){
                         self?.photoURlCach[id] = url
                         DispatchQueue.main.async {
                             completion(url,nil)
+                            self?.statePublisher.accept(true)
                         }
                     }
                 }catch{
                     print(error.localizedDescription)
                     DispatchQueue.main.async{
                         completion(nil,error)
+                        self?.statePublisher.accept(false)
                     }
                 }
             }

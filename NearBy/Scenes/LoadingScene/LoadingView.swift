@@ -31,14 +31,7 @@ class LoadingView: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        viewModel.checkAuthorizationStatus()
-
-    }
-    
-    
-    
+        
 //    MARK: - View Model Subscribetions
     
     //Subscribe to the state publisher to get the state

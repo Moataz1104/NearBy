@@ -42,6 +42,8 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     func updateLocations(){
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
+        statePublisher.accept(true)
+
         
         
     }

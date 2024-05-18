@@ -15,10 +15,11 @@ class PlaceInfoCell: UITableViewCell {
     @IBOutlet weak var placeAddress: UILabel!
     
     
+    var viewModel : InfoViewModel?
     var downloadTask:URLSessionDownloadTask?
-
+    
     override func awakeFromNib() {
-        super.awakeFromNib()    
+        super.awakeFromNib()
         
     }
     override func prepareForReuse() {
@@ -29,19 +30,15 @@ class PlaceInfoCell: UITableViewCell {
     
     
     
-    func configImage(with place : PlaceResult,viewModel:InfoViewModel){
-        viewModel.fetchPhotosUrl(place: place) {[weak self] url, error in
+    func configImage(with place : PlaceResult){
+        viewModel?.fetchPhotosUrl(place: place) {[weak self] url, error in
             guard let url = url , error == nil else{return}
             
-            DispatchQueue.main.async {
-                self?.downloadTask = self?.placeImage.loadImage(url: url)
-            }
+            self?.downloadTask = self?.placeImage.loadImage(url: url)
         }
-        
         placeName.text = place.name ?? "No Name"
         placeAddress.text = place.location?.formattedAddress ?? "No Address"
-    }
+        
 
-    
-    
+    }
 }
