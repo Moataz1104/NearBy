@@ -31,6 +31,7 @@
 		00BBA5892BF3DF8000816CD3 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00BBA5872BF3DF8000816CD3 /* LoadingView.xib */; };
 		00E7BE412BF80213009EC965 /* UiImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */; };
 		00E7BE432BF8D3EF009EC965 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7BE422BF8D3EF009EC965 /* InfoViewModel.swift */; };
+		00E7BE472BF8EE35009EC965 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7BE462BF8EE35009EC965 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		00BBA5872BF3DF8000816CD3 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiImageViewExtension.swift; sourceTree = "<group>"; };
 		00E7BE422BF8D3EF009EC965 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		00E7BE462BF8EE35009EC965 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +125,7 @@
 			children = (
 				00BBA5822BF3DF2500816CD3 /* Models */,
 				00BBA5832BF3DF4A00816CD3 /* Scenes */,
-				00BB6BE82BF4ECC8004DFA69 /* APIServices */,
-				00E7BE3F2BF801EF009EC965 /* Extensions */,
+				00E7BE442BF8EE0B009EC965 /* utilities */,
 				00BBA56E2BF3DCB300816CD3 /* AppDelegate.swift */,
 				00BBA5702BF3DCB300816CD3 /* SceneDelegate.swift */,
 				00BBA5772BF3DCB400816CD3 /* Assets.xcassets */,
@@ -169,6 +170,24 @@
 				00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		00E7BE442BF8EE0B009EC965 /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				00E7BE452BF8EE27009EC965 /* Managers */,
+				00BB6BE82BF4ECC8004DFA69 /* APIServices */,
+				00E7BE3F2BF801EF009EC965 /* Extensions */,
+			);
+			path = utilities;
+			sourceTree = "<group>";
+		};
+		00E7BE452BF8EE27009EC965 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				00E7BE462BF8EE35009EC965 /* LocationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +284,7 @@
 				00E7BE412BF80213009EC965 /* UiImageViewExtension.swift in Sources */,
 				00BBA5712BF3DCB300816CD3 /* SceneDelegate.swift in Sources */,
 				00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */,
+				00E7BE472BF8EE35009EC965 /* LocationManager.swift in Sources */,
 				00581B702BF755DD00ECD829 /* InfoView.swift in Sources */,
 				00581B782BF7971500ECD829 /* PlacePhotoModel.swift in Sources */,
 				00BB6BF02BF4FD7D004DFA69 /* APIPlaceRequest.swift in Sources */,

@@ -33,8 +33,7 @@ class LoadingView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.locationManager.delegate = self
-        viewModel.checkAuthorizationStatus()
+//        viewModel.checkAuthorizationStatus()
 
     }
     
@@ -104,36 +103,3 @@ class LoadingView: UIViewController {
 }
 
 
-extension LoadingView : CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        //Check if the user changes the Authorization
-        
-        switch manager.authorizationStatus{
-        case .authorizedAlways , .authorizedWhenInUse:
-            viewModel.statePublisher.accept(true)
-            viewModel.updateLocations()
-            break
-        default :
-            viewModel.statePublisher.accept(false)
-            break
-        }
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if let lastLocation = locations.last{
-            print(lastLocation.coordinate)
-            viewModel.statePublisher.accept(true)
-            viewModel.locationManager.stopUpdatingLocation()
-            viewModel.sendRequest(lat: "\(lastLocation.coordinate.latitude)", lon: "\(lastLocation.coordinate.longitude)")
-        }
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-        viewModel.statePublisher.accept(false)
-    }
-    
-}

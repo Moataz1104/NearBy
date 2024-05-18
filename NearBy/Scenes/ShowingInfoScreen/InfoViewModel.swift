@@ -28,6 +28,7 @@ class InfoViewModel{
 //        Check if the url already exists or not
         if let cachedUrl = photoURlCach[id]{
             completion(cachedUrl, nil)
+            return
         }else{
             
             let url = URL(string: "https://api.foursquare.com/v3/places/\(id)/photos")!

@@ -16,15 +16,20 @@ class LoadingViewModel{
     let disposeBag : DisposeBag
     
     let statePublisher = BehaviorRelay<Bool>(value: true) //state for something went wrong or not
+    
     let placesDataPublisher = PublishRelay<[PlaceResult]>()
-    var locationManager = CLLocationManager()
     
     
     init(disposeBag:DisposeBag){
         self.disposeBag = disposeBag
-        
+        LocationManager.shared.requestUserAuth()
+        LocationManager.shared.checkAuthorizationStatus()
+
         subscribeToDataPublisher()
         subscribeToErroPublisher()
+        subscribeToCooridatePublisher()
+
+
     }
     
     
@@ -40,7 +45,7 @@ class LoadingViewModel{
     private func subscribeToDataPublisher(){
         APIPlaceRequest.shared.dataPublisher
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-            .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.instance)
             .subscribe {[weak self] event in
                 if let results = event.element?.results{
                     self?.placesDataPublisher.accept(results)
@@ -53,39 +58,29 @@ class LoadingViewModel{
     //    subscribe to error publisher
     private func subscribeToErroPublisher(){
         APIPlaceRequest.shared.errorPublisher
+            .observe(on: MainScheduler.instance)
             .subscribe {[weak self] event in
                 self?.statePublisher.accept(false)
                 print(event.element?.localizedDescription ?? "No Error")
             }
             .disposed(by: disposeBag)
     }
-}
-
-
-
-//MARK: - Core location Authorizations
-extension LoadingViewModel{
     
-    func checkAuthorizationStatus(){
-        //Check the authorization status
-        let status = locationManager.authorizationStatus
-        
-        switch status{
-        case .authorizedAlways , .authorizedWhenInUse  :
-            updateLocations()
-            statePublisher.accept(true)
-            break
-        default:
-            statePublisher.accept(false)
-        }
-    }
     
-    func updateLocations(){
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+//    MARK: - location Manager subscribtions
+    
+    private func subscribeToCooridatePublisher(){        
+        LocationManager.shared.coordinatesPublisher
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.instance)
+            .subscribe {[weak self] coordinate in
+                self?.sendRequest(lat: "\(coordinate.latitude)", lon: "\(coordinate.longitude)")
+            }
+            .disposed(by: disposeBag)
         
     }
     
-    
 }
+
+
 
