@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0054544D2BF93E290068124C /* UiButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054544C2BF93E290068124C /* UiButtonExtension.swift */; };
 		00581B702BF755DD00ECD829 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B6E2BF755DD00ECD829 /* InfoView.swift */; };
 		00581B712BF755DD00ECD829 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00581B6F2BF755DD00ECD829 /* InfoView.xib */; };
 		00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0054544C2BF93E290068124C /* UiButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiButtonExtension.swift; sourceTree = "<group>"; };
 		00581B6E2BF755DD00ECD829 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		00581B6F2BF755DD00ECD829 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoView.xib; sourceTree = "<group>"; };
 		00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoCell.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */,
+				0054544C2BF93E290068124C /* UiButtonExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				00BB6BEE2BF4F598004DFA69 /* APIBaseSession.swift in Sources */,
 				00BB6BEC2BF4F3F7004DFA69 /* LoadingViewModel.swift in Sources */,
 				00BBA56F2BF3DCB300816CD3 /* AppDelegate.swift in Sources */,
+				0054544D2BF93E290068124C /* UiButtonExtension.swift in Sources */,
 				00E7BE412BF80213009EC965 /* UiImageViewExtension.swift in Sources */,
 				00BBA5712BF3DCB300816CD3 /* SceneDelegate.swift in Sources */,
 				00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */,

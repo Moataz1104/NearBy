@@ -37,10 +37,10 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGg-yN-xhL">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="125"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Near By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2i-63-Rtt">
-                            <rect key="frame" x="158.66666666666666" y="56.666666666666664" width="75.666666666666657" height="25.333333333333336"/>
+                            <rect key="frame" x="158.66666666666666" y="91.666666666666671" width="75.666666666666657" height="25.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                     <constraints>
                         <constraint firstItem="V2i-63-Rtt" firstAttribute="centerX" secondItem="PGg-yN-xhL" secondAttribute="centerX" id="dcw-Ry-YJ7"/>
-                        <constraint firstAttribute="height" constant="90" id="kZh-VP-mhG"/>
+                        <constraint firstAttribute="height" constant="125" id="kZh-VP-mhG"/>
                         <constraint firstAttribute="bottom" secondItem="V2i-63-Rtt" secondAttribute="bottom" constant="8" id="yi1-WQ-me5"/>
                     </constraints>
                 </view>

@@ -29,7 +29,12 @@ class InfoView: UIViewController {
         viewModel = InfoViewModel()
         tableView.delegate = self
         tableView.dataSource = self
+        view.bringSubviewToFront(modeButton)
         
+        
+        modeButton.configureMenu{action in
+            print(action.title)
+        }
         
         subscribeToStatePublisher()
         registerCell()
@@ -47,7 +52,8 @@ class InfoView: UIViewController {
     }
     
     
-//    MARK: - View Model Subscribetions
+    
+    //    MARK: - View Model Subscribetions
     
     //Subscribe to the state publisher to get the state
     private func subscribeToStatePublisher(){

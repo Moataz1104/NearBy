@@ -77,11 +77,11 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if let lastLocation = locations.last{
-            print(lastLocation.coordinate)
-            coordinatesPublisher.accept(lastLocation.coordinate)
+            print("send Coordinates: \(lastLocation.coordinate)")
             statePublisher.accept(true)
             locationManager.stopUpdatingLocation()
-            
+            coordinatesPublisher.accept(lastLocation.coordinate)
+
         }
         
     }
