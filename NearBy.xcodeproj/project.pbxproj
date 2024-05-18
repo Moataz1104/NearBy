@@ -11,6 +11,7 @@
 		00581B712BF755DD00ECD829 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00581B6F2BF755DD00ECD829 /* InfoView.xib */; };
 		00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */; };
 		00581B762BF77E9100ECD829 /* PlaceInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */; };
+		00581B782BF7971500ECD829 /* PlacePhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B772BF7971500ECD829 /* PlacePhotoModel.swift */; };
 		00BB6BDD2BF3EC21004DFA69 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BDC2BF3EC21004DFA69 /* RxCocoa */; };
 		00BB6BDF2BF3EC21004DFA69 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BDE2BF3EC21004DFA69 /* RxCocoa-Dynamic */; };
 		00BB6BE12BF3EC21004DFA69 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 00BB6BE02BF3EC21004DFA69 /* RxRelay */; };
@@ -28,6 +29,8 @@
 		00BBA57B2BF3DCB400816CD3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 00BBA57A2BF3DCB400816CD3 /* Base */; };
 		00BBA5882BF3DF8000816CD3 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BBA5862BF3DF8000816CD3 /* LoadingView.swift */; };
 		00BBA5892BF3DF8000816CD3 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00BBA5872BF3DF8000816CD3 /* LoadingView.xib */; };
+		00E7BE412BF80213009EC965 /* UiImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */; };
+		00E7BE432BF8D3EF009EC965 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7BE422BF8D3EF009EC965 /* InfoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,7 @@
 		00581B6F2BF755DD00ECD829 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoView.xib; sourceTree = "<group>"; };
 		00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoCell.swift; sourceTree = "<group>"; };
 		00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceInfoCell.xib; sourceTree = "<group>"; };
+		00581B772BF7971500ECD829 /* PlacePhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotoModel.swift; sourceTree = "<group>"; };
 		00BB6BE92BF4ECDD004DFA69 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		00BB6BEB2BF4F3F7004DFA69 /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		00BB6BED2BF4F598004DFA69 /* APIBaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIBaseSession.swift; sourceTree = "<group>"; };
@@ -48,6 +52,8 @@
 		00BBA57C2BF3DCB400816CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00BBA5862BF3DF8000816CD3 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		00BBA5872BF3DF8000816CD3 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
+		00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiImageViewExtension.swift; sourceTree = "<group>"; };
+		00E7BE422BF8D3EF009EC965 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,7 @@
 			children = (
 				00581B6E2BF755DD00ECD829 /* InfoView.swift */,
 				00581B6F2BF755DD00ECD829 /* InfoView.xib */,
+				00E7BE422BF8D3EF009EC965 /* InfoViewModel.swift */,
 			);
 			path = ShowingInfoScreen;
 			sourceTree = "<group>";
@@ -117,6 +124,7 @@
 				00BBA5822BF3DF2500816CD3 /* Models */,
 				00BBA5832BF3DF4A00816CD3 /* Scenes */,
 				00BB6BE82BF4ECC8004DFA69 /* APIServices */,
+				00E7BE3F2BF801EF009EC965 /* Extensions */,
 				00BBA56E2BF3DCB300816CD3 /* AppDelegate.swift */,
 				00BBA5702BF3DCB300816CD3 /* SceneDelegate.swift */,
 				00BBA5772BF3DCB400816CD3 /* Assets.xcassets */,
@@ -130,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				00BB6BF12BF4FF26004DFA69 /* PlaceModel.swift */,
+				00581B772BF7971500ECD829 /* PlacePhotoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -152,6 +161,14 @@
 				00BB6BEB2BF4F3F7004DFA69 /* LoadingViewModel.swift */,
 			);
 			path = LoadingScene;
+			sourceTree = "<group>";
+		};
+		00E7BE3F2BF801EF009EC965 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				00E7BE402BF80213009EC965 /* UiImageViewExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,15 +255,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E7BE432BF8D3EF009EC965 /* InfoViewModel.swift in Sources */,
 				00BB6BEA2BF4ECDD004DFA69 /* APIConstants.swift in Sources */,
 				00BB6BF22BF4FF26004DFA69 /* PlaceModel.swift in Sources */,
 				00BBA5882BF3DF8000816CD3 /* LoadingView.swift in Sources */,
 				00BB6BEE2BF4F598004DFA69 /* APIBaseSession.swift in Sources */,
 				00BB6BEC2BF4F3F7004DFA69 /* LoadingViewModel.swift in Sources */,
 				00BBA56F2BF3DCB300816CD3 /* AppDelegate.swift in Sources */,
+				00E7BE412BF80213009EC965 /* UiImageViewExtension.swift in Sources */,
 				00BBA5712BF3DCB300816CD3 /* SceneDelegate.swift in Sources */,
 				00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */,
 				00581B702BF755DD00ECD829 /* InfoView.swift in Sources */,
+				00581B782BF7971500ECD829 /* PlacePhotoModel.swift in Sources */,
 				00BB6BF02BF4FD7D004DFA69 /* APIPlaceRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

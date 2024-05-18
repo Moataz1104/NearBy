@@ -9,18 +9,23 @@ import UIKit
 
 class InfoView: UIViewController {
     
-//    MARK: - Attributes and Outlets
+    //    MARK: - Attributes and Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var modeButton: UIButton!
     
     let places : [PlaceResult]
+    var viewModel : InfoViewModel!
     
-//    MARK: - ViewController life cycle
+    
+    //    MARK: - ViewController life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = InfoViewModel()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
         
         registerCell()
         
@@ -29,7 +34,7 @@ class InfoView: UIViewController {
     init(places: [PlaceResult]) {
         self.places = places
         super.init(nibName: nil, bundle: nil)
-
+        
     }
     
     required init?(coder: NSCoder) {
@@ -39,13 +44,13 @@ class InfoView: UIViewController {
     
     
     
-//    MARK: - Privates
+    //    MARK: - Privates
     private func registerCell(){
         tableView.register(UINib(nibName: PlaceInfoCell.identifier, bundle: nil), forCellReuseIdentifier: PlaceInfoCell.identifier)
     }
     
     
-
+    
 }
 
 extension InfoView : UITableViewDelegate , UITableViewDataSource{
@@ -55,9 +60,18 @@ extension InfoView : UITableViewDelegate , UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceInfoCell.identifier, for: indexPath) as! PlaceInfoCell
         let place = places[indexPath.row]
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceInfoCell.identifier, for: indexPath) as! PlaceInfoCell
+        
+//        Fetch the photos url then pass it to the cell
+        viewModel.fetchPhotosUrl(place: place) { url , error in
+            if let url = url , error == nil{
+                cell.configImage(with: url)
+            }else{
+                //HAndle errors
+            }
+        }
         cell.placeName.text = place.name ?? "No Name"
         cell.placeAddress.text = place.location?.formattedAddress ?? "No Address"
         

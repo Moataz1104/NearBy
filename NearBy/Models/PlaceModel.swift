@@ -17,7 +17,7 @@ struct PlaceResult : Codable{
     let name : String?
     
     enum CodingKeys : String , CodingKey{
-        case fsqID = "fsq_ID"
+        case fsqID = "fsq_id"
         case location , name
     }
     

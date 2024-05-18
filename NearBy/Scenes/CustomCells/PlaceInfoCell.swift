@@ -15,10 +15,27 @@ class PlaceInfoCell: UITableViewCell {
     @IBOutlet weak var placeAddress: UILabel!
     
     
+    var downloadTask:URLSessionDownloadTask?
 
     override func awakeFromNib() {
-        super.awakeFromNib()        
+        super.awakeFromNib()    
+        
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        downloadTask?.cancel()
+        downloadTask = nil
+    }
+    
+    
+    
+    func configImage(with url : URL){
+        //Update the image
+        DispatchQueue.main.async {[weak self] in
+            self?.downloadTask = self?.placeImage.loadImage(url: url)
+        }
     }
 
+    
     
 }
