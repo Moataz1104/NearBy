@@ -64,18 +64,7 @@ extension InfoView : UITableViewDelegate , UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceInfoCell.identifier, for: indexPath) as! PlaceInfoCell
         
-//        Fetch the photos url then pass it to the cell
-        viewModel.fetchPhotosUrl(place: place) { url , error in
-            if let url = url , error == nil{
-                cell.configImage(with: url)
-            }else{
-                //HAndle errors
-            }
-        }
-        cell.placeName.text = place.name ?? "No Name"
-        cell.placeAddress.text = place.location?.formattedAddress ?? "No Address"
-        
-        
+        cell.configImage(with: place, viewModel: viewModel)
         return cell
     }
     

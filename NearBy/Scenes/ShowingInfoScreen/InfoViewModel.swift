@@ -15,7 +15,7 @@ class InfoViewModel{
     
     
     private var photoURlCach:[String:URL] = [:]
-    
+    var dataTask:URLSessionDataTask?
     
     
     func fetchPhotosUrl(place : PlaceResult , completion:@escaping(URL?,Error?) -> Void){
@@ -27,7 +27,10 @@ class InfoViewModel{
         
 //        Check if the url already exists or not
         if let cachedUrl = photoURlCach[id]{
-            completion(cachedUrl, nil)
+            DispatchQueue.main.async {
+                completion(cachedUrl,nil)
+            }
+            
             return
         }else{
             
@@ -38,20 +41,24 @@ class InfoViewModel{
             request.allHTTPHeaderFields = ["accept" : "application/json",
                                            "Authorization":APIK.apiKey
             ]
-            let dataTask = URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
+            dataTask = URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
                 guard let data = data , error == nil else {completion(nil , error); return}
                 do{
                     let placePhotos = try JSONDecoder().decode([PlacePhotoModel].self, from: data)
                     if let placePhoto = placePhotos.first, let url = URL(string:placePhoto.photoUrlString!){
                         self?.photoURlCach[id] = url
-                        completion(url,nil)
+                        DispatchQueue.main.async {
+                            completion(url,nil)
+                        }
                     }
                 }catch{
                     print(error.localizedDescription)
-                    completion(nil,error)
+                    DispatchQueue.main.async{
+                        completion(nil,error)
+                    }
                 }
             }
-            dataTask.resume()
+            dataTask?.resume()
             
         }
     }

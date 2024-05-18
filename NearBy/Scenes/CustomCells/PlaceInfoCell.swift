@@ -29,11 +29,17 @@ class PlaceInfoCell: UITableViewCell {
     
     
     
-    func configImage(with url : URL){
-        //Update the image
-        DispatchQueue.main.async {[weak self] in
-            self?.downloadTask = self?.placeImage.loadImage(url: url)
+    func configImage(with place : PlaceResult,viewModel:InfoViewModel){
+        viewModel.fetchPhotosUrl(place: place) {[weak self] url, error in
+            guard let url = url , error == nil else{return}
+            
+            DispatchQueue.main.async {
+                self?.downloadTask = self?.placeImage.loadImage(url: url)
+            }
         }
+        
+        placeName.text = place.name ?? "No Name"
+        placeAddress.text = place.location?.formattedAddress ?? "No Address"
     }
 
     
