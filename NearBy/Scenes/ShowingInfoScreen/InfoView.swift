@@ -15,6 +15,7 @@ class InfoView: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var modeButton: UIButton!
     @IBOutlet weak var stateImage: UIImageView!
+    @IBOutlet weak var titleView: UIView!
     
     
     let disposeBag = DisposeBag()
@@ -29,18 +30,15 @@ class InfoView: UIViewController {
         viewModel = InfoViewModel()
         tableView.delegate = self
         tableView.dataSource = self
-        view.bringSubviewToFront(modeButton)
         
-        
-        modeButton.configureMenu{action in
-            UserDefaults.standard.set(action.title,forKey: "selectedMode")
-        }
+        configureModeButton()
         
         subscribeToStatePublisher()
         registerCell()
         
         
     }
+    
     
     init(places: [PlaceResult]) {
         self.places = places
@@ -56,10 +54,11 @@ class InfoView: UIViewController {
     
     //    MARK: - View Model Subscribetions
     
-    //Subscribe to the state publisher to get the state
     private func subscribeToStatePublisher(){
+        
+        //Subscribe to the state publisher to get the state
         viewModel.statePublisher
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe {[weak self]state in
                 if state{
                     self?.configUiState(state: .requesting)
@@ -78,6 +77,15 @@ class InfoView: UIViewController {
     //    MARK: - Privates
     private func registerCell(){
         tableView.register(UINib(nibName: PlaceInfoCell.identifier, bundle: nil), forCellReuseIdentifier: PlaceInfoCell.identifier)
+    }
+    
+    private func configureModeButton(){
+        modeButton.configureMenu{action in
+            UserDefaults.standard.set(action.title,forKey: "selectedMode")
+            LocationManager.shared.selectedMode = action.title
+            LocationManager.shared.updateLocations()
+        }
+
     }
     
     
@@ -112,7 +120,9 @@ extension InfoView : UITableViewDelegate , UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if places.isEmpty{
-            configUiState(state: .noData)
+            DispatchQueue.main.async{[weak self] in
+                self?.configUiState(state: .noData)
+            }
         }
         return places.count
     }

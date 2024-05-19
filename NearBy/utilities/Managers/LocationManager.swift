@@ -19,16 +19,20 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     let coordinatesPublisher = PublishRelay<CLLocationCoordinate2D>()
     private let locationManager = CLLocationManager()
 
+    var selectedMode = UserDefaults.standard.string(forKey: "selectedMode") ?? "Realtime"
+    
 
     private override init(){
         super.init()
         locationManager.delegate = self
+        checkAuthorizationStatus()
+
     }
     
     func checkAuthorizationStatus(){
         //Check the authorization status
         let status = locationManager.authorizationStatus
-        
+        print("Check status")
         switch status{
         case .authorizedAlways , .authorizedWhenInUse:
             updateLocations()
@@ -42,12 +46,9 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     }
     
     func updateLocations(){
+        statePublisher.accept(true)
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
-        statePublisher.accept(true)
-
-        
-        
     }
     
     func requestUserAuth(){
@@ -65,12 +66,13 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         //Check if the user changes the Authorization
         
         switch manager.authorizationStatus{
-        case .authorizedAlways , .authorizedWhenInUse:
+        case .authorizedAlways , .authorizedWhenInUse,.notDetermined :
             statePublisher.accept(true)
             updateLocations()
             break
-        case .denied:
+        case .denied , .restricted :
             statePublisher.accept(false)
+            break
         default :
             statePublisher.accept(true)
             break
@@ -83,15 +85,23 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         if let lastLocation = locations.last{
             print("send Coordinates: \(lastLocation.coordinate)")
             statePublisher.accept(true)
-            locationManager.stopUpdatingLocation()
-            coordinatesPublisher.accept(lastLocation.coordinate)
-
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1){[weak self] in
+                self?.coordinatesPublisher.accept(lastLocation.coordinate)
+            }
+            
         }
-        
+        if selectedMode == "Realtime"{
+            updateLocations()
+        }else{
+            locationManager.stopUpdatingLocation()
+        }
+
+        print(selectedMode)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+        print("3")
         statePublisher.accept(false)
     }
     

@@ -17,6 +17,8 @@ class LoadingView: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var errorImage: UIImageView!
     @IBOutlet weak var indicatorStack: UIStackView!
+    @IBOutlet weak var titleView: UIView!
+    
     
     let disposeBag = DisposeBag()
     var viewModel : LoadingViewModel!
@@ -25,6 +27,8 @@ class LoadingView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configUiState(state: .requesting)
+
         viewModel = LoadingViewModel(disposeBag: disposeBag)
         subscribeToStatePublisher()
         subscribeToPlacesDataPublisher()
@@ -36,30 +40,32 @@ class LoadingView: UIViewController {
     
     //Subscribe to the state publisher to get the state
     private func subscribeToStatePublisher(){
-        viewModel.statePublisher
-            .observe(on: MainScheduler.instance)
+//        Subscribe to the global state from (location Manager , view model)
+        viewModel.glopalStateObservable()
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe {[weak self] state in
                 if state{
                     self?.configUiState(state: .requesting)
                 }else{
                     self?.configUiState(state: .error)
-
                 }
             }
             .disposed(by: disposeBag)
     }
     
-    //receive the places data
     private func subscribeToPlacesDataPublisher(){
+        
+        //receive the places data from view Model then inject it in the info view then remove this view
         viewModel.placesDataPublisher
             .observe(on: MainScheduler.instance)
             .subscribe {[weak self] places in
                 if let results = places.element , places.element?.count != 0{
                     self?.navigationController?.setViewControllers([InfoView(places: results)], animated: true)
-
+                    
                 }else{
                     self?.configUiState(state: .noData)
-
+                    
                 }
             }
             .disposed(by: disposeBag)

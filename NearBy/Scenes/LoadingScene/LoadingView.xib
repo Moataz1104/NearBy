@@ -14,6 +14,7 @@
                 <outlet property="errorImage" destination="Rpk-ux-ly9" id="ypa-Ds-Ovp"/>
                 <outlet property="indicator" destination="2kP-Ac-7Tw" id="7dP-S7-vt5"/>
                 <outlet property="indicatorStack" destination="HeI-jy-vUF" id="AWw-B7-6KF"/>
+                <outlet property="titleView" destination="PGg-yN-xhL" id="AWY-MM-aps"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -37,10 +38,10 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGg-yN-xhL">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="125"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="122.66666666666667"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Near By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2i-63-Rtt">
-                            <rect key="frame" x="158.66666666666666" y="91.666666666666671" width="75.666666666666657" height="25.333333333333329"/>
+                            <rect key="frame" x="158.66666666666666" y="89.333333333333329" width="75.666666666666657" height="25.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -49,7 +50,6 @@
                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                     <constraints>
                         <constraint firstItem="V2i-63-Rtt" firstAttribute="centerX" secondItem="PGg-yN-xhL" secondAttribute="centerX" id="dcw-Ry-YJ7"/>
-                        <constraint firstAttribute="height" constant="125" id="kZh-VP-mhG"/>
                         <constraint firstAttribute="bottom" secondItem="V2i-63-Rtt" secondAttribute="bottom" constant="8" id="yi1-WQ-me5"/>
                     </constraints>
                 </view>
@@ -70,6 +70,7 @@
                 <constraint firstItem="PGg-yN-xhL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CIa-dP-DP8"/>
                 <constraint firstItem="PGg-yN-xhL" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Dfv-T1-VY4"/>
                 <constraint firstItem="HeI-jy-vUF" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="TAY-WV-IyJ"/>
+                <constraint firstItem="PGg-yN-xhL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.144" id="aVi-QJ-dwa"/>
                 <constraint firstItem="Rpk-ux-ly9" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="l4n-3S-cqL"/>
             </constraints>
             <point key="canvasLocation" x="136.64122137404578" y="19.718309859154932"/>

@@ -25,16 +25,21 @@ class InfoViewModel{
     func fetchPhotosUrl(place : PlaceResult , completion:@escaping(URL?,Error?) -> Void){
         guard let id = place.fsqID else{
             print("No id")
-            completion(nil,NSError(domain: "URL Error", code: 0))
-            statePublisher.accept(false)
+            DispatchQueue.main.async{[weak self] in
+                completion(nil,NSError(domain: "URL Error", code: 0))
+                self?.statePublisher.accept(false)
+            }
             return
         }
         
 //        Check if the url already exists or not
         if let cachedUrl = photoURlCach[id]{
-            DispatchQueue.main.async {[weak self] in
+            
+            DispatchQueue.global().async {
                 completion(cachedUrl,nil)
-                self?.statePublisher.accept(true)
+                DispatchQueue.main.async {[weak self] in
+                    self?.statePublisher.accept(true)
+                }
             }
             
             return
@@ -49,23 +54,31 @@ class InfoViewModel{
             ]
             dataTask = URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
                 guard let data = data , error == nil else {
-                    completion(nil , error)
-                    self?.statePublisher.accept(false)
+                    DispatchQueue.main.async {
+                        completion(nil , error)
+                        self?.statePublisher.accept(false)
+                    }
                     return}
                 do{
                     let placePhotos = try JSONDecoder().decode([PlacePhotoModel].self, from: data)
+                    //Get the first photo
                     if let placePhoto = placePhotos.first, let url = URL(string:placePhoto.photoUrlString!){
+                        
                         self?.photoURlCach[id] = url
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
                             completion(url,nil)
-                            self?.statePublisher.accept(true)
+                            DispatchQueue.main.async {
+                                self?.statePublisher.accept(true)
+                            }
                         }
                     }
                 }catch{
                     print(error.localizedDescription)
-                    DispatchQueue.main.async{
+                    DispatchQueue.global().async {[weak self] in
                         completion(nil,error)
-                        self?.statePublisher.accept(false)
+                        DispatchQueue.main.async {
+                            self?.statePublisher.accept(false)
+                        }
                     }
                 }
             }

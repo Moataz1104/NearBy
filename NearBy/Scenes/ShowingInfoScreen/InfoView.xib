@@ -14,6 +14,7 @@
                 <outlet property="modeButton" destination="eaA-Gs-lPW" id="n38-Yp-DmH"/>
                 <outlet property="stateImage" destination="uat-zo-yNW" id="fcS-Sp-SQW"/>
                 <outlet property="tableView" destination="fMA-w8-3lg" id="Drw-XB-K90"/>
+                <outlet property="titleView" destination="4dN-ce-wiy" id="mti-d1-nTb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,10 +24,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4dN-ce-wiy">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="125"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="122.66666666666667"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Fm5-Ni-Qoi">
-                            <rect key="frame" x="157.33333333333331" y="87" width="196.33333333333331" height="30"/>
+                            <rect key="frame" x="157.33333333333331" y="84.666666666666671" width="196.33333333333331" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Near By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXr-oz-dH1">
                                     <rect key="frame" x="0.0" y="2.3333333333333286" width="75.666666666666671" height="25.333333333333332"/>
@@ -50,11 +51,10 @@
                         <constraint firstItem="Fm5-Ni-Qoi" firstAttribute="centerX" secondItem="4dN-ce-wiy" secondAttribute="centerX" multiplier="1.3" id="2OS-aP-rjq"/>
                         <constraint firstAttribute="bottom" secondItem="Fm5-Ni-Qoi" secondAttribute="bottom" constant="8" id="OmZ-fL-mu3"/>
                         <constraint firstItem="Fm5-Ni-Qoi" firstAttribute="width" secondItem="4dN-ce-wiy" secondAttribute="width" multiplier="0.5" id="ipy-U2-RCd"/>
-                        <constraint firstAttribute="height" constant="125" id="oRs-VQ-IhU"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fMA-w8-3lg">
-                    <rect key="frame" x="0.0" y="130" width="393" height="688"/>
+                    <rect key="frame" x="0.0" y="127.66666666666669" width="393" height="690.33333333333326"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uat-zo-yNW">
@@ -71,6 +71,7 @@
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9Mq-Wz-K8S"/>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CgF-5f-gqI"/>
                 <constraint firstItem="uat-zo-yNW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="D3e-42-xXG"/>
+                <constraint firstItem="4dN-ce-wiy" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.144" id="Fkl-kS-396"/>
                 <constraint firstItem="uat-zo-yNW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Ub6-CJ-4TY"/>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Vvw-M0-ZB0"/>
                 <constraint firstAttribute="trailing" secondItem="fMA-w8-3lg" secondAttribute="trailing" id="a94-W1-Y1D"/>

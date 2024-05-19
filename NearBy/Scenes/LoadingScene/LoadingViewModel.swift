@@ -23,12 +23,10 @@ class LoadingViewModel{
     init(disposeBag:DisposeBag){
         self.disposeBag = disposeBag
         LocationManager.shared.requestUserAuth()
-        LocationManager.shared.checkAuthorizationStatus()
         
         subscribeToCooridatePublisher()
         subscribeToDataPublisher()
         subscribeToErroPublisher()
-        subscribeToLocationStatePublisher()
 
 
     }
@@ -37,9 +35,9 @@ class LoadingViewModel{
     
     //    MARK: - API Subscribetions
     
-    func sendRequest(lat:String,lon:String){
-        APIPlaceRequest.shared.placeSearchRequest(lat: lat, lon: lon)
+    private func sendRequest(lat:String,lon:String){
         statePublisher.accept(true)
+        APIPlaceRequest.shared.placeSearchRequest(lat: lat, lon: lon)
     }
     
     //    subscribe to data publisher
@@ -57,8 +55,9 @@ class LoadingViewModel{
             .disposed(by: disposeBag)
     }
     
-    //    subscribe to error publisher
     private func subscribeToErroPublisher(){
+        
+        //    subscribe to error publisher from api services
         APIPlaceRequest.shared.errorPublisher
             .observe(on: MainScheduler.instance)
             .subscribe {[weak self] event in
@@ -72,10 +71,10 @@ class LoadingViewModel{
 //    MARK: - location Manager subscribtions
     
     private func subscribeToCooridatePublisher(){ 
-        print("Subscribe")
+//        Get coordinates to send the request
         LocationManager.shared.coordinatesPublisher
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-            .observe(on: MainScheduler.instance)
+            .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .subscribe {[weak self] coordinate in
                 print("Coordinates from subscribtion")
                 self?.sendRequest(lat: "\(coordinate.latitude)", lon: "\(coordinate.longitude)")
@@ -84,15 +83,15 @@ class LoadingViewModel{
         
     }
     
-    private func subscribeToLocationStatePublisher(){
-        LocationManager.shared.statePublisher
-            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
-            .observe(on: MainScheduler.instance)
-            .subscribe {[weak self] state in
-                self?.statePublisher.accept(state)
-            }
-            .disposed(by: disposeBag)
+    
+    func glopalStateObservable()->Observable<Bool>{
+//        Merge the state comes from the location manger with this view model's state
+        let stateSource = Observable.of(LocationManager.shared.statePublisher.asObservable(),
+                                        statePublisher.asObservable())
+        
+        return stateSource.merge()
     }
+    
 }
 
 
