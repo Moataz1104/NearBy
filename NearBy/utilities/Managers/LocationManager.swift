@@ -18,12 +18,19 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     let statePublisher = BehaviorRelay<Bool>(value: true)
     let coordinatesPublisher = PublishRelay<CLLocationCoordinate2D>()
     private let locationManager = CLLocationManager()
+    private var realTimeArray = [CLLocation]()
+    private var lastRetrievedPlacesLocation :CLLocation?
+    private var coordinatesWillEmited : CLLocationCoordinate2D?
 
+    private var isFirstTimeIntialize : Bool!
+    
+    
     var selectedMode = UserDefaults.standard.string(forKey: "selectedMode") ?? "Realtime"
     
 
     private override init(){
         super.init()
+        isFirstTimeIntialize = true
         locationManager.delegate = self
         requestUserAuth()
         checkAuthorizationStatus()
@@ -58,6 +65,40 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
     }
     
+    private func handleRealTimeUpdates(lastLocation:CLLocation){
+        if lastRetrievedPlacesLocation == nil {
+            //Assign value to the last retrieved places location if it is nil
+            lastRetrievedPlacesLocation = lastLocation
+            coordinatesWillEmited = lastRetrievedPlacesLocation?.coordinate
+        }
+        
+        if realTimeArray.isEmpty{
+            //Append the last retrieved places location in the first index
+            realTimeArray.append(lastRetrievedPlacesLocation!)
+        }
+        if realTimeArray.count == 1{
+            //Append any other location in the second index
+            realTimeArray.append(lastLocation)
+        }
+        
+        if realTimeArray.count == 2{
+            //if the array is completed with two elements then check if the diff is 500m
+            realTimeArray[1] = lastLocation
+            if realTimeArray[0].distance(from: realTimeArray[1]) > 500 {
+                //if the diff is 500m then replace the first index with the second index which is the updated location then emit this coordinates
+                realTimeArray[0] = realTimeArray[1]
+                coordinatesWillEmited = realTimeArray[0].coordinate
+            }else{
+                //Assign this variable with nil to guarantee that no coordinates will be emitted
+                coordinatesWillEmited = nil
+            }
+            
+            print("****************************")
+            print(realTimeArray[0].distance(from: realTimeArray[1]))
+            print("****************************")
+        }
+
+    }
     
     
     
@@ -89,25 +130,40 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         guard let lastLocation = locations.last else{ statePublisher.accept(false)
             return}
         
+        handleRealTimeUpdates(lastLocation: lastLocation)
+        
+        
         if selectedMode == "Realtime"{
-            updateLocations()
+            if isFirstTimeIntialize{
+                coordinatesPublisher.accept(lastLocation.coordinate)
+            }
+            if let coordinatesWillEmited = coordinatesWillEmited{
+                coordinatesPublisher.accept(coordinatesWillEmited)
+            }
+            isFirstTimeIntialize = false
+            
         }else{
-            
-            
-            statePublisher.accept(true)
             print("emit coordinates")
+            print("singl mode")
             coordinatesPublisher.accept(lastLocation.coordinate)
             locationManager.stopUpdatingLocation()
-            
-            
-        }
 
-        print("\(selectedMode) from 2")
+        }
+        
+        
+        statePublisher.accept(true)
+
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-        statePublisher.accept(false)
+        print("\(error) from location manager")
+        if let clError = error as? CLError{
+            if clError.code == .locationUnknown{
+                
+            }else{
+                statePublisher.accept(false)
+            }
+        }
     }
     
 }

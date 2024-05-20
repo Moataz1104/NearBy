@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoView" customModule="NearBy" customModuleProvider="target">
             <connections>
+                <outlet property="indicator" destination="98x-Ch-SMC" id="xch-I1-bfh"/>
                 <outlet property="modeButton" destination="eaA-Gs-lPW" id="n38-Yp-DmH"/>
                 <outlet property="stateImage" destination="uat-zo-yNW" id="fcS-Sp-SQW"/>
                 <outlet property="tableView" destination="fMA-w8-3lg" id="Drw-XB-K90"/>
@@ -57,6 +58,9 @@
                         <constraint firstAttribute="height" constant="128" id="BQP-YD-Xi7"/>
                     </constraints>
                 </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="98x-Ch-SMC">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -65,7 +69,9 @@
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CgF-5f-gqI"/>
                 <constraint firstItem="uat-zo-yNW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="D3e-42-xXG"/>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.144" id="Fkl-kS-396"/>
+                <constraint firstItem="98x-Ch-SMC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Ix8-sD-VdH"/>
                 <constraint firstItem="uat-zo-yNW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Ub6-CJ-4TY"/>
+                <constraint firstItem="98x-Ch-SMC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="VgW-os-KA2"/>
                 <constraint firstItem="4dN-ce-wiy" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Vvw-M0-ZB0"/>
                 <constraint firstAttribute="trailing" secondItem="fMA-w8-3lg" secondAttribute="trailing" id="a94-W1-Y1D"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fMA-w8-3lg" secondAttribute="bottom" id="hu8-ro-lnl"/>

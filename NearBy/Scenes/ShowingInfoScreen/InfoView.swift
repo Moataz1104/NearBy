@@ -16,6 +16,7 @@ class InfoView: UIViewController {
     @IBOutlet weak var modeButton: UIButton!
     @IBOutlet weak var stateImage: UIImageView!
     @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     
     let disposeBag = DisposeBag()
@@ -30,6 +31,7 @@ class InfoView: UIViewController {
         viewModel = InfoViewModel(disposeBag: disposeBag)
         tableView.delegate = self
         tableView.dataSource = self
+        indicator.isHidden = true
         
         configureModeButton()
         
@@ -103,8 +105,7 @@ class InfoView: UIViewController {
         modeButton.configureMenu{action in
             UserDefaults.standard.set(action.title,forKey: "selectedMode")
             LocationManager.shared.selectedMode = action.title
-//            LocationManager.shared.updateLocations() if commented then user can not update again if the action is single update
-            print("\(action.title) from 1")
+            LocationManager.shared.updateLocations()
         }
 
     }
@@ -112,7 +113,7 @@ class InfoView: UIViewController {
     
 //    MARK: - State
     private enum loadingState{
-        case requesting , error , noData
+        case requesting , requestNewData, showNewData , error , noData
     }
     
     private func configUiState(state : loadingState){
@@ -120,6 +121,16 @@ class InfoView: UIViewController {
         case .requesting:
             tableView.isHidden = false
             stateImage.isHidden = true
+        case .requestNewData:
+            indicator.isHidden = false
+            places.removeAll()
+            tableView.isHidden = true
+            indicator.startAnimating()
+        case .showNewData:
+            indicator.isHidden = true
+            indicator.stopAnimating()
+            tableView.isHidden = false
+            tableView.reloadData()
         case .error:
             tableView.isHidden = true
             stateImage.isHidden = false
