@@ -34,7 +34,7 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         locationManager.delegate = self
         requestUserAuth()
         checkAuthorizationStatus()
-        print("intialize location manager")
+        
         
 
     }
@@ -42,7 +42,7 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     func checkAuthorizationStatus(){
         //Check the authorization status
         let status = locationManager.authorizationStatus
-        print("Check status")
+        
         switch status{
         case .authorizedAlways , .authorizedWhenInUse:
             updateLocations()
@@ -93,9 +93,6 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
                 coordinatesWillEmited = nil
             }
             
-            print("****************************")
-            print(realTimeArray[0].distance(from: realTimeArray[1]))
-            print("****************************")
         }
 
     }
@@ -143,8 +140,6 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
             isFirstTimeIntialize = false
             
         }else{
-            print("emit coordinates")
-            print("singl mode")
             coordinatesPublisher.accept(lastLocation.coordinate)
             locationManager.stopUpdatingLocation()
 
@@ -156,7 +151,6 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("\(error) from location manager")
         if let clError = error as? CLError{
             if clError.code == .locationUnknown{
                 

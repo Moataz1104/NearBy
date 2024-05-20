@@ -72,12 +72,12 @@ class LoadingViewModel{
     
     func subscribeToCooridatePublisher(){ 
 //        Get coordinates to send the request
-        print("subscribed from loading viewModel")
+        
         LocationManager.shared.coordinatesPublisher
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .subscribe {[weak self] coordinate in
-                print("Coordinates from subscribtion")
+                
                 self?.sendRequest(lat: "\(coordinate.latitude)", lon: "\(coordinate.longitude)")
             }
             .disposed(by: disposeBag)

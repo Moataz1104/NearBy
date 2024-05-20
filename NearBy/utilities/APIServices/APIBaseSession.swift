@@ -26,10 +26,10 @@ struct APIBaseSession{
             }
             
             if (200...300).contains(response.statusCode){
-                print("success from baseSession")
+                
                 completion(.success(data))
             }else{
-                print("Error from baseSession")
+                
                 completion(.failure(NSError(domain: "HTTP Error", code: response.statusCode)))
                 
             }

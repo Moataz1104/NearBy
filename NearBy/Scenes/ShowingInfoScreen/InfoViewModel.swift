@@ -63,7 +63,7 @@ class InfoViewModel{
             .observe(on: MainScheduler.instance)
             .subscribe {[weak self] event in
                 self?.statePublisher.accept(false)
-                print(event.element?.localizedDescription ?? "No Error")
+                
             }
             .disposed(by: disposeBag)
     }
@@ -77,7 +77,7 @@ class InfoViewModel{
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .subscribe {[weak self] coordinate in
-                print("Coordinates from subscribtion")
+                
                 self?.sendRequest(lat: "\(coordinate.latitude)", lon: "\(coordinate.longitude)")
             }
             .disposed(by: disposeBag)
@@ -100,7 +100,7 @@ class InfoViewModel{
 //    MARK: - fetch the photos
     func fetchPhotosUrl(place : PlaceResult , completion:@escaping(URL?,Error?) -> Void){
         guard let id = place.fsqID else{
-            print("No id")
+            
             DispatchQueue.main.async{[weak self] in
                 completion(nil,NSError(domain: "URL Error", code: 0))
                 self?.statePublisher.accept(false)
@@ -149,7 +149,7 @@ class InfoViewModel{
                         }
                     }
                 }catch{
-                    print(error.localizedDescription)
+                    
                     DispatchQueue.global().async {[weak self] in
                         completion(nil,error)
                         DispatchQueue.main.async {

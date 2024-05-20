@@ -16,12 +16,15 @@ extension UIImageView{
         let downloadTask = URLSession.shared.downloadTask(with:url){[weak self] url,_,error in
             if error == nil ,
                let url = url ,
-               let data = try? Data(contentsOf: url) , let image = UIImage(data: data){
+               let data = try? Data(contentsOf: url) ,
+               let image = UIImage(data: data){
                 guard let self = self else{return}
                 DispatchQueue.main.async {
                     self.image = image
                     
                 }
+            }else{
+                self?.image = UIImage(systemName: "photo.artframe")
             }
             
             

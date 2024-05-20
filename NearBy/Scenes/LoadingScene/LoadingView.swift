@@ -47,9 +47,6 @@ class LoadingView: UIViewController {
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
             .subscribe {[weak self] state in
-                print("****************************")
-                print(state)
-                print("****************************")
 
                 if state{
                     self?.configUiState(state: .requesting)

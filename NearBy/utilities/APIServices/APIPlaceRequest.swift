@@ -36,11 +36,11 @@ class APIPlaceRequest {
         
         
         guard let finalUrl = urlComponents?.url else{
-            print("Invalid URL")
+            
             errorPublisher.accept(NSError(domain: "URL Error", code: 0))
             return}
         
-        print(finalUrl)
+        
         var request = URLRequest(url: finalUrl)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = ["accept":"application/json" ,
@@ -51,16 +51,16 @@ class APIPlaceRequest {
             switch result{
             case .success(let data) :
                 if let data {
-                    print(data)
+                    
                     do{
                         let decodedData = try JSONDecoder().decode(PlaceModel.self, from: data)
                         self?.dataPublisher.accept(decodedData)
                     }catch{
-                        print(error.localizedDescription)
+                        
                     }
                 }
             case .failure(let error):
-                print(error)
+                
                 self?.errorPublisher.accept(error)
             }
         }
