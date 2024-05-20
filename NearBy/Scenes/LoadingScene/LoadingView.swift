@@ -29,7 +29,9 @@ class LoadingView: UIViewController {
         super.viewDidLoad()
         configUiState(state: .requesting)
 
+        
         viewModel = LoadingViewModel(disposeBag: disposeBag)
+        
         subscribeToStatePublisher()
         subscribeToPlacesDataPublisher()
         

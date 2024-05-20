@@ -25,7 +25,10 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     private override init(){
         super.init()
         locationManager.delegate = self
+        requestUserAuth()
         checkAuthorizationStatus()
+        print("intialize location manager")
+        
 
     }
     
@@ -82,26 +85,28 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if let lastLocation = locations.last{
-            print("send Coordinates: \(lastLocation.coordinate)")
-            statePublisher.accept(true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1){[weak self] in
-                self?.coordinatesPublisher.accept(lastLocation.coordinate)
-            }
-            
-        }
+        
+        guard let lastLocation = locations.last else{ statePublisher.accept(false)
+            return}
+        
         if selectedMode == "Realtime"{
             updateLocations()
         }else{
+            
+            
+            statePublisher.accept(true)
+            print("emit coordinates")
+            coordinatesPublisher.accept(lastLocation.coordinate)
             locationManager.stopUpdatingLocation()
+            
+            
         }
 
-        print(selectedMode)
+        print("\(selectedMode) from 2")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
-        print("3")
         statePublisher.accept(false)
     }
     

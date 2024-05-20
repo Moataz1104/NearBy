@@ -19,7 +19,7 @@ class InfoView: UIViewController {
     
     
     let disposeBag = DisposeBag()
-    let places : [PlaceResult]
+    var places : [PlaceResult]
     var viewModel : InfoViewModel!
     
     
@@ -27,13 +27,15 @@ class InfoView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = InfoViewModel()
+        viewModel = InfoViewModel(disposeBag: disposeBag)
         tableView.delegate = self
         tableView.dataSource = self
         
         configureModeButton()
         
+        
         subscribeToStatePublisher()
+        subscribeToPlacesDataPublisher()
         registerCell()
         
         
@@ -56,21 +58,39 @@ class InfoView: UIViewController {
     
     private func subscribeToStatePublisher(){
         
-        //Subscribe to the state publisher to get the state
-        viewModel.statePublisher
+        //Subscribe to the global state from (location Manager , view model)
+        viewModel.glopalStateObservable()
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe {[weak self]state in
+            .subscribe {[weak self] state in
                 if state{
                     self?.configUiState(state: .requesting)
                 }else{
                     self?.configUiState(state: .error)
-                    
                 }
             }
             .disposed(by: disposeBag)
     }
     
-    
+    private func subscribeToPlacesDataPublisher(){
+        
+        //receive the places data from view Model then inject it in the info view then remove this view
+        viewModel.placesDataPublisher
+            .observe(on: MainScheduler.instance)
+            .subscribe {[weak self] places in
+                if let results = places.element , places.element?.count != 0{
+                    DispatchQueue.main.async{
+                        self?.places = results
+                        self?.tableView.reloadData()
+                    }
+                }else{
+                    self?.configUiState(state: .noData)
+                    
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
     
     
     
@@ -83,7 +103,8 @@ class InfoView: UIViewController {
         modeButton.configureMenu{action in
             UserDefaults.standard.set(action.title,forKey: "selectedMode")
             LocationManager.shared.selectedMode = action.title
-            LocationManager.shared.updateLocations()
+//            LocationManager.shared.updateLocations() if commented then user can not update again if the action is single update
+            print("\(action.title) from 1")
         }
 
     }

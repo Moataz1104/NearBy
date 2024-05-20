@@ -23,6 +23,7 @@ class LoadingViewModel{
     init(disposeBag:DisposeBag){
         self.disposeBag = disposeBag
         LocationManager.shared.requestUserAuth()
+        LocationManager.shared.checkAuthorizationStatus()
         
         subscribeToCooridatePublisher()
         subscribeToDataPublisher()
@@ -30,8 +31,7 @@ class LoadingViewModel{
 
 
     }
-    
-    
+        
     
     //    MARK: - API Subscribetions
     
@@ -70,8 +70,9 @@ class LoadingViewModel{
     
 //    MARK: - location Manager subscribtions
     
-    private func subscribeToCooridatePublisher(){ 
+    func subscribeToCooridatePublisher(){ 
 //        Get coordinates to send the request
+        print("subscribed from loading viewModel")
         LocationManager.shared.coordinatesPublisher
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
