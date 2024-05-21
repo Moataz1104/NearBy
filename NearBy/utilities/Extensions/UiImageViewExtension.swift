@@ -7,30 +7,31 @@
 
 import Foundation
 import UIKit
-
+import RxSwift
+import RxCocoa
 extension UIImageView{
     
 //    Add extension to uiimageview to load the images form url and update it in the image view
-    func loadImage(url:URL)->URLSessionDownloadTask{
+    func loadImage(url:URL)->Disposable{
         
-        let downloadTask = URLSession.shared.downloadTask(with:url){[weak self] url,_,error in
-            if error == nil ,
-               let url = url ,
-               let data = try? Data(contentsOf: url) ,
-               let image = UIImage(data: data){
-                guard let self = self else{return}
-                DispatchQueue.main.async {
-                    self.image = image
-                    
+        DispatchQueue.main.async{[weak self] in
+            self?.image = UIImage(systemName: "photo.artframe")
+        }
+        
+        return URLSession.shared.rx.data(request: URLRequest(url: url))
+            .map {data in
+                return UIImage(data: data) // get the uiimage data
+            }
+            .observe(on: MainScheduler.instance)
+            .subscribe {[weak self] image in
+                if let image{
+                    self?.image = image //set the image to be the returned data
+                }else{
+                    self?.image = UIImage(systemName: "photo.artframe")
                 }
-            }else{
+            }onError: {[weak self] _ in
                 self?.image = UIImage(systemName: "photo.artframe")
             }
-            
-            
-        }
-        downloadTask.resume()
-        return downloadTask
     }
 }
 

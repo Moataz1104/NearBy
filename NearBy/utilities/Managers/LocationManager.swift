@@ -22,7 +22,7 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
     private var lastRetrievedPlacesLocation :CLLocation?
     private var coordinatesWillEmited : CLLocationCoordinate2D?
 
-    private var isFirstTimeIntialize : Bool!
+    private var isFirstTimeIntialize : Bool!//handle the first time for the subscribtion on coordinatesPublisher not be too early
     
     
     var selectedMode = UserDefaults.standard.string(forKey: "selectedMode") ?? "Realtime"
@@ -132,20 +132,27 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         
         if selectedMode == "Realtime"{
             if isFirstTimeIntialize{
-                coordinatesPublisher.accept(lastLocation.coordinate)
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5){[weak self] in
+                    self?.coordinatesPublisher.accept(lastLocation.coordinate)
+                }
             }
             if let coordinatesWillEmited = coordinatesWillEmited{
+
                 coordinatesPublisher.accept(coordinatesWillEmited)
             }
-            isFirstTimeIntialize = false
-            
         }else{
-            coordinatesPublisher.accept(lastLocation.coordinate)
-            locationManager.stopUpdatingLocation()
-
+            if isFirstTimeIntialize{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){[weak self] in
+                    self?.coordinatesPublisher.accept(lastLocation.coordinate)
+                    self?.locationManager.stopUpdatingLocation()
+                }
+            }else{
+                coordinatesPublisher.accept(lastLocation.coordinate)
+                locationManager.stopUpdatingLocation()
+            }
         }
         
-        
+        isFirstTimeIntialize = false
         statePublisher.accept(true)
 
     }

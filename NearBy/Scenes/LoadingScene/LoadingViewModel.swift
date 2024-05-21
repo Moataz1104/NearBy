@@ -45,8 +45,8 @@ class LoadingViewModel{
         APIPlaceRequest.shared.dataPublisher
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .background))
             .observe(on: MainScheduler.instance)
-            .subscribe {[weak self] event in
-                if let results = event.element?.results{
+            .subscribe {[weak self] data in
+                if let results = data.results{
                     self?.placesDataPublisher.accept(results)
                     
                     
@@ -62,7 +62,6 @@ class LoadingViewModel{
             .observe(on: MainScheduler.instance)
             .subscribe {[weak self] event in
                 self?.statePublisher.accept(false)
-                print(event.element?.localizedDescription ?? "No Error")
             }
             .disposed(by: disposeBag)
     }

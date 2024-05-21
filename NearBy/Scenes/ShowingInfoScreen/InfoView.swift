@@ -83,11 +83,12 @@ class InfoView: UIViewController {
                 if let results = places.element , places.element?.count != 0{
                     DispatchQueue.main.async{
                         self?.places = results
-                        self?.tableView.reloadData()
+                        UIView.transition(with: self?.tableView ?? UITableView(), duration: 0.4,options: .transitionCrossDissolve) {
+                            self?.tableView.reloadData()
+                        }
                     }
                 }else{
                     self?.configUiState(state: .noData)
-                    
                 }
             }
             .disposed(by: disposeBag)
@@ -113,7 +114,7 @@ class InfoView: UIViewController {
     
 //    MARK: - State
     private enum loadingState{
-        case requesting , requestNewData, showNewData , error , noData
+        case requesting , error , noData
     }
     
     private func configUiState(state : loadingState){
@@ -121,16 +122,6 @@ class InfoView: UIViewController {
         case .requesting:
             tableView.isHidden = false
             stateImage.isHidden = true
-        case .requestNewData:
-            indicator.isHidden = false
-            places.removeAll()
-            tableView.isHidden = true
-            indicator.startAnimating()
-        case .showNewData:
-            indicator.isHidden = true
-            indicator.stopAnimating()
-            tableView.isHidden = false
-            tableView.reloadData()
         case .error:
             tableView.isHidden = true
             stateImage.isHidden = false
@@ -165,8 +156,7 @@ extension InfoView : UITableViewDelegate , UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceInfoCell.identifier, for: indexPath) as! PlaceInfoCell
         
         cell.viewModel = viewModel
-        
-        cell.configImage(with: place)
+        cell.configImage(with: place,disposeBag: disposeBag)
         
         return cell
     }

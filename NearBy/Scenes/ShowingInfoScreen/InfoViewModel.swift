@@ -14,12 +14,10 @@ import RxCocoa
 class InfoViewModel{
     
     
-    private var photoURlCach:[String:URL] = [:]
-    var dataTask:URLSessionDataTask?
     
     let statePublisher = BehaviorRelay<Bool>(value: true)
     let placesDataPublisher = PublishRelay<[PlaceResult]>()
-
+    private var photoUrlCach = NSCache<NSString,NSURL>()//used to store the photo url to prevent redundunt requests
     
     let disposeBag : DisposeBag
     
@@ -97,69 +95,39 @@ class InfoViewModel{
     
     
     
-//    MARK: - fetch the photos
-    func fetchPhotosUrl(place : PlaceResult , completion:@escaping(URL?,Error?) -> Void){
-        guard let id = place.fsqID else{
-            
-            DispatchQueue.main.async{[weak self] in
-                completion(nil,NSError(domain: "URL Error", code: 0))
-                self?.statePublisher.accept(false)
-            }
-            return
+//    MARK: - fetch the photos URl
+    
+    func fetchPhotosUrl(place:PlaceResult)->Observable<URL?>{
+        
+        guard let id = place.fsqID else{//if id is not exists
+            return Observable.just(nil)
         }
         
-//        Check if the url already exists or not
-        if let cachedUrl = photoURlCach[id]{
-            
-            DispatchQueue.global().async {
-                completion(cachedUrl,nil)
-                DispatchQueue.main.async {[weak self] in
-                    self?.statePublisher.accept(true)
-                }
-            }
-            
-            return
+        if let cachUrl = photoUrlCach.object(forKey: id as NSString) as URL?{
+            //if the url already exists in cach then return
+            return Observable.just(cachUrl)
         }else{
-            
+            //if the url not exists in cach then buld the request
             let url = URL(string: "https://api.foursquare.com/v3/places/\(id)/photos")!
-            
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.allHTTPHeaderFields = ["accept" : "application/json",
-                                           "Authorization":APIK.apiKey
-            ]
-            dataTask = URLSession.shared.dataTask(with: request) {[weak self] data, response, error in
-                guard let data = data , error == nil else {
-                    DispatchQueue.main.async {
-                        completion(nil , error)
-                        self?.statePublisher.accept(false)
-                    }
-                    return}
-                do{
-                    let placePhotos = try JSONDecoder().decode([PlacePhotoModel].self, from: data)
-                    //Get the first photo
-                    if let placePhoto = placePhotos.first, let url = URL(string:placePhoto.photoUrlString!){
-                        
-                        self?.photoURlCach[id] = url
-                        DispatchQueue.global().async {
-                            completion(url,nil)
-                            DispatchQueue.main.async {
-                                self?.statePublisher.accept(true)
-                            }
-                        }
-                    }
-                }catch{
-                    
-                    DispatchQueue.global().async {[weak self] in
-                        completion(nil,error)
-                        DispatchQueue.main.async {
-                            self?.statePublisher.accept(false)
-                        }
-                    }
-                }
-            }
-            dataTask?.resume()
+            request.allHTTPHeaderFields = ["accept":"application/json" ,
+                                           "Authorization":APIK.apiKey]
             
+            return URLSession.shared.rx.data(request: request)
+                .map {[weak self] data in
+                    //get all the photos urls
+                    let placePhotos = try? JSONDecoder().decode([PlacePhotoModel].self, from: data)
+                    //then take only the first url then save it in cachs
+                    if let placePhoto = placePhotos?.first , let urlString = placePhoto.photoUrlString, let url = URL(string: urlString){
+                        self?.photoUrlCach.setObject(url as NSURL, forKey: id as NSString)
+                        return url
+                    }
+
+                    return nil
+                }
+                .catchAndReturn(nil)// return nil if catch an error
         }
     }
+    
 }

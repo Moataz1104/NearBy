@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PlaceInfoCell: UITableViewCell {
     static let identifier = "PlaceInfoCell"
@@ -16,7 +18,7 @@ class PlaceInfoCell: UITableViewCell {
     
     
     var viewModel : InfoViewModel?
-    var downloadTask:URLSessionDownloadTask?
+    var imageLoadDisposable : Disposable?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,21 +26,29 @@ class PlaceInfoCell: UITableViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
-        downloadTask?.cancel()
-        downloadTask = nil
+        //dispose the image loading and set image to nil before reuse the cells
+        imageLoadDisposable?.dispose()
+        placeImage.image = nil
     }
     
     
     
-    func configImage(with place : PlaceResult){
-        viewModel?.fetchPhotosUrl(place: place) {[weak self] url, error in
-            guard let url = url , error == nil else{return}
-            
-            self?.downloadTask = self?.placeImage.loadImage(url: url)
-        }
+    func configImage(with place : PlaceResult , disposeBag:DisposeBag){
+        viewModel?.fetchPhotosUrl(place: place)
+            .compactMap{$0}//remove the nil values and unwrap the other values
+            .subscribe(onNext: {[weak self] url in
+                DispatchQueue.main.async{
+                    //make animation
+                    UIView.transition(with: self?.placeImage ?? UIImageView(), duration: 0.1,options: .transitionCrossDissolve) {
+                        self?.imageLoadDisposable = self?.placeImage.loadImage(url: url)
+                            
+                    }
+                }
+                
+            })
+            .disposed(by:disposeBag)
+        
         placeName.text = place.name ?? "No Name"
         placeAddress.text = place.location?.formattedAddress ?? "No Address"
-        
-
     }
 }

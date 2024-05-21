@@ -19,6 +19,7 @@ struct PlacePhotoModel:Codable , Equatable {
     
     
     var photoUrlString : String? {
+        //Returns the full url of the photo
         guard let suffix = suffix , let prefix = prefix else { return nil }
         let photoDimentions = "100x100"
         
