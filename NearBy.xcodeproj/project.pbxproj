@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0023F8672C0EDE8F005B2394 /* PlacePhotosView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0023F8662C0EDE8F005B2394 /* PlacePhotosView.xib */; };
+		0023F8682C0EDE8F005B2394 /* PlacePhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023F8652C0EDE8F005B2394 /* PlacePhotosView.swift */; };
+		0023F86D2C0EDFF2005B2394 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0023F86C2C0EDFF2005B2394 /* PhotoCell.xib */; };
+		0023F86E2C0EDFF2005B2394 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023F86B2C0EDFF2005B2394 /* PhotoCell.swift */; };
+		0023F8702C0EEC26005B2394 /* PlacePhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023F86F2C0EEC26005B2394 /* PlacePhotosViewModel.swift */; };
 		0054544D2BF93E290068124C /* UiButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0054544C2BF93E290068124C /* UiButtonExtension.swift */; };
 		00581B702BF755DD00ECD829 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00581B6E2BF755DD00ECD829 /* InfoView.swift */; };
 		00581B712BF755DD00ECD829 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00581B6F2BF755DD00ECD829 /* InfoView.xib */; };
@@ -36,6 +41,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0023F8652C0EDE8F005B2394 /* PlacePhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosView.swift; sourceTree = "<group>"; };
+		0023F8662C0EDE8F005B2394 /* PlacePhotosView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacePhotosView.xib; sourceTree = "<group>"; };
+		0023F86B2C0EDFF2005B2394 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		0023F86C2C0EDFF2005B2394 /* PhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
+		0023F86F2C0EEC26005B2394 /* PlacePhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosViewModel.swift; sourceTree = "<group>"; };
 		0054544C2BF93E290068124C /* UiButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiButtonExtension.swift; sourceTree = "<group>"; };
 		00581B6E2BF755DD00ECD829 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		00581B6F2BF755DD00ECD829 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoView.xib; sourceTree = "<group>"; };
@@ -77,6 +87,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0023F8642C0EDE53005B2394 /* PlacePhotosScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0023F8652C0EDE8F005B2394 /* PlacePhotosView.swift */,
+				0023F8662C0EDE8F005B2394 /* PlacePhotosView.xib */,
+				0023F86F2C0EEC26005B2394 /* PlacePhotosViewModel.swift */,
+			);
+			path = PlacePhotosScreen;
+			sourceTree = "<group>";
+		};
+		0023F8692C0EDFBB005B2394 /* InfoCells */ = {
+			isa = PBXGroup;
+			children = (
+				00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */,
+				00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */,
+			);
+			path = InfoCells;
+			sourceTree = "<group>";
+		};
+		0023F86A2C0EDFCF005B2394 /* PhotosCells */ = {
+			isa = PBXGroup;
+			children = (
+				0023F86B2C0EDFF2005B2394 /* PhotoCell.swift */,
+				0023F86C2C0EDFF2005B2394 /* PhotoCell.xib */,
+			);
+			path = PhotosCells;
+			sourceTree = "<group>";
+		};
 		00581B692BF754C700ECD829 /* ShowingInfoScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,8 +128,8 @@
 		00581B722BF77E7000ECD829 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				00581B732BF77E9100ECD829 /* PlaceInfoCell.swift */,
-				00581B742BF77E9100ECD829 /* PlaceInfoCell.xib */,
+				0023F8692C0EDFBB005B2394 /* InfoCells */,
+				0023F86A2C0EDFCF005B2394 /* PhotosCells */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -151,6 +189,7 @@
 			children = (
 				00BBA5842BF3DF5A00816CD3 /* LoadingScene */,
 				00581B692BF754C700ECD829 /* ShowingInfoScreen */,
+				0023F8642C0EDE53005B2394 /* PlacePhotosScreen */,
 				00581B722BF77E7000ECD829 /* CustomCells */,
 			);
 			path = Scenes;
@@ -265,8 +304,10 @@
 				00581B762BF77E9100ECD829 /* PlaceInfoCell.xib in Resources */,
 				00581B712BF755DD00ECD829 /* InfoView.xib in Resources */,
 				00BBA5892BF3DF8000816CD3 /* LoadingView.xib in Resources */,
+				0023F8672C0EDE8F005B2394 /* PlacePhotosView.xib in Resources */,
 				00BBA5782BF3DCB400816CD3 /* Assets.xcassets in Resources */,
 				00BBA57B2BF3DCB400816CD3 /* Base in Resources */,
+				0023F86D2C0EDFF2005B2394 /* PhotoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,8 +321,10 @@
 				00E7BE432BF8D3EF009EC965 /* InfoViewModel.swift in Sources */,
 				00BB6BEA2BF4ECDD004DFA69 /* APIConstants.swift in Sources */,
 				00BB6BF22BF4FF26004DFA69 /* PlaceModel.swift in Sources */,
+				0023F8702C0EEC26005B2394 /* PlacePhotosViewModel.swift in Sources */,
 				00BBA5882BF3DF8000816CD3 /* LoadingView.swift in Sources */,
 				00BB6BEE2BF4F598004DFA69 /* APIBaseSession.swift in Sources */,
+				0023F86E2C0EDFF2005B2394 /* PhotoCell.swift in Sources */,
 				00BB6BEC2BF4F3F7004DFA69 /* LoadingViewModel.swift in Sources */,
 				00BBA56F2BF3DCB300816CD3 /* AppDelegate.swift in Sources */,
 				0054544D2BF93E290068124C /* UiButtonExtension.swift in Sources */,
@@ -290,6 +333,7 @@
 				00581B752BF77E9100ECD829 /* PlaceInfoCell.swift in Sources */,
 				00E7BE472BF8EE35009EC965 /* LocationManager.swift in Sources */,
 				00581B702BF755DD00ECD829 /* InfoView.swift in Sources */,
+				0023F8682C0EDE8F005B2394 /* PlacePhotosView.swift in Sources */,
 				00581B782BF7971500ECD829 /* PlacePhotoModel.swift in Sources */,
 				00BB6BF02BF4FD7D004DFA69 /* APIPlaceRequest.swift in Sources */,
 			);

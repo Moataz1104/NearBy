@@ -119,7 +119,7 @@ class InfoViewModel{
                     //get all the photos urls
                     let placePhotos = try? JSONDecoder().decode([PlacePhotoModel].self, from: data)
                     //then take only the first url then save it in cachs
-                    if let placePhoto = placePhotos?.first , let urlString = placePhoto.photoUrlString, let url = URL(string: urlString){
+                    if let placePhoto = placePhotos?.first , let urlString = placePhoto.smallPhotoUrlString, let url = URL(string: urlString){
                         self?.photoUrlCach.setObject(url as NSURL, forKey: id as NSString)
                         return url
                     }

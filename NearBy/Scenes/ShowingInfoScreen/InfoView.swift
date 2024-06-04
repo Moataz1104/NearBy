@@ -165,6 +165,11 @@ extension InfoView : UITableViewDelegate , UITableViewDataSource{
         115
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(PlacePhotosView(placeID:places[indexPath.row].fsqID!), animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
     
 }

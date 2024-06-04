@@ -18,7 +18,7 @@ struct PlacePhotoModel:Codable , Equatable {
     
     
     
-    var photoUrlString : String? {
+    var smallPhotoUrlString : String? {
         //Returns the full url of the photo
         guard let suffix = suffix , let prefix = prefix else { return nil }
         let photoDimentions = "100x100"
@@ -26,4 +26,14 @@ struct PlacePhotoModel:Codable , Equatable {
         let urlString = prefix.appending(photoDimentions).appending(suffix)
         return urlString
     }
+    
+    var largePhotoUrlString : String? {
+        //Returns the full url of the photo
+        guard let suffix = suffix , let prefix = prefix else { return nil }
+        let photoDimentions = "320x300"
+        
+        let urlString = prefix.appending(photoDimentions).appending(suffix)
+        return urlString
+    }
+
 }
