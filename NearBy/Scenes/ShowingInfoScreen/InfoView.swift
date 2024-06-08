@@ -108,7 +108,7 @@ class InfoView: UIViewController {
             LocationManager.shared.selectedMode = action.title
             LocationManager.shared.updateLocations()
         }
-
+        
     }
     
     

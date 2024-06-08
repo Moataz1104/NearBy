@@ -15,7 +15,7 @@ extension UIImageView{
     func loadImage(url:URL)->Disposable{
         
         DispatchQueue.main.async{[weak self] in
-            self?.image = UIImage(systemName: "photo.artframe")
+            self?.image = UIImage(systemName: "photo")
         }
         
         return URLSession.shared.rx.data(request: URLRequest(url: url))
