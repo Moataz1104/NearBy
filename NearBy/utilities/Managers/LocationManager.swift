@@ -84,7 +84,7 @@ class LocationManager : NSObject,CLLocationManagerDelegate {
         if realTimeArray.count == 2{
             //if the array is completed with two elements then check if the diff is 500m
             realTimeArray[1] = lastLocation
-            if realTimeArray[0].distance(from: realTimeArray[1]) > 500 {
+            if realTimeArray[0].distance(from: realTimeArray[1]) > 100 {
                 //if the diff is 500m then replace the first index with the second index which is the updated location then emit this coordinates
                 realTimeArray[0] = realTimeArray[1]
                 coordinatesWillEmited = realTimeArray[0].coordinate
